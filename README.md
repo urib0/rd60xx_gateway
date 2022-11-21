@@ -5,12 +5,13 @@ RIDENの安定化電源 60xxシリーズをソケット通信で制御するた�
 # Requirements
 
 - python 3.8
-- pyserial
-- minimalmodbus
-- rd6006(https://github.com/Baldanos/rd6006/)
+- pip modules
+    - pyserial
+    - minimalmodbus
+    - rd6006(https://github.com/Baldanos/rd6006/)
 
 # Usage
 
 ```bash
-./server.py "/dev/<serial_port>"
+./server.py
 ```
