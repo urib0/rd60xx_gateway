@@ -3,6 +3,7 @@
 import socket
 from rd6006 import RD6006
 import json
+import pprint
 
 # 設定値読み込み
 with open("./config.json", "r") as f:
@@ -28,13 +29,23 @@ print(f"IPAddress:{ip}\nPORT:{port}")
 
 while True:
     # ソケット接続待ち
-    print("接続待ち")
+    print("waiting for a connection...")
     client, remoteAddress = sock.accept()
     print(f"clientIPAddress:{remoteAddress}")
 
     while True:
         rcv_data = client.recv(1024).decode()
-        print(rcv_data)
-        if not rcv_data:
+
+        if rcv_data:
+            try:
+                json_data = json.loads(rcv_data)
+                pprint.pprint(json_data)
+                client.sendall("200".encode())
+            except Exception as e:
+                print(rcv_data)
+                client.sendall("400".encode())
+                print(e)
+
+        else:
             break
     client.close()
